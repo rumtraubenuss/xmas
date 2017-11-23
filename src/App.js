@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import landscapeImage from './landscape.jpg';
 
 class App extends Component {
   constructor(props) {
@@ -52,6 +53,9 @@ class App extends Component {
             alt=""
             src={`${process.env.PUBLIC_URL}/content_01.jpg`}
           />
+        </div>
+        <div className="landscape__container">
+          <img src={landscapeImage} className="landscape__image" alt="" />
         </div>
       </div>
     );
