@@ -63,7 +63,7 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
   display: flex;
   opacity: 0;
-  transition: opacity 1s ease-out;
+  transition: opacity 0.3s ease-out;
   pointer-events: none;
 }
 

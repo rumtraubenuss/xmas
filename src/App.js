@@ -7,17 +7,24 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentDay: 8,
+      currentDay: new Date().getDate(),
       showContent: false,
     };
+    window.setInterval(this.handleTick, 1000);
+  }
+
+  handleTick = () => {
+    const currentDay = new Date().getDate();
+    this.setState({ currentDay });
   }
 
   imageOnLoad = ev => {
     console.log(ev.target.height);
   }
 
-  handleDayClick = ev => {
-    this.setState({ showContent: true });
+  handleDayClick = index => {
+    const showContent = index <= this.state.currentDay - 1 ? true : false;
+    this.setState({ showContent });
   }
 
   handleContentClick = ev => {
@@ -35,7 +42,7 @@ class App extends Component {
             const activeClass = n < currentDay ? ' day__item--active' : '';
             return (
               <div
-                onClick={this.handleDayClick}
+                onClick={() => this.handleDayClick(n)}
                 className={`day__item${activeClass}`}
                 key={n}
               >
