@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import './App.css';
 import landscapeImage from './landscape.jpg';
 
@@ -9,6 +10,7 @@ class App extends Component {
     this.state = {
       currentDay: new Date().getDate(),
       showContent: false,
+      contentIndex: undefined,
     };
     window.setInterval(this.handleTick, 1000);
   }
@@ -18,13 +20,9 @@ class App extends Component {
     this.setState({ currentDay });
   }
 
-  imageOnLoad = ev => {
-    console.log(ev.target.height);
-  }
-
-  handleDayClick = index => {
-    const showContent = index <= this.state.currentDay - 1 ? true : false;
-    this.setState({ showContent });
+  handleDayClick = contentIndex => {
+    const showContent = contentIndex <= this.state.currentDay - 1 ? true : false;
+    this.setState({ showContent, contentIndex });
   }
 
   handleContentClick = ev => {
@@ -32,7 +30,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentDay, showContent } = this.state;
+    const { currentDay, showContent, contentIndex } = this.state;
     const contentActiveClass = showContent ? " content__container--active" : "";
 
     return (
@@ -58,7 +56,7 @@ class App extends Component {
           <img
             className="content__image"
             alt=""
-            src={`${process.env.PUBLIC_URL}/content_01.jpg`}
+            src={`${process.env.PUBLIC_URL}/content_${contentIndex}.jpg`}
           />
         </div>
         <div className="landscape__container">
