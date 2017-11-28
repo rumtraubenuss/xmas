@@ -10,6 +10,8 @@ class App extends Component {
     this.state = {
       currentDay: new Date().getDate(),
       showContent: false,
+      showImage: false,
+      ts: undefined,
       contentIndex: undefined,
     };
     window.setInterval(this.handleTick, 1000);
@@ -22,16 +24,23 @@ class App extends Component {
 
   handleDayClick = contentIndex => {
     const showContent = contentIndex <= this.state.currentDay - 1 ? true : false;
-    this.setState({ showContent, contentIndex });
+    const showImage = false;
+    const ts = new Date().getTime();
+    this.setState({ showContent, showImage, contentIndex, ts });
   }
 
   handleContentClick = ev => {
-    this.setState({ showContent: false });
+    this.setState({ showContent: false, showImage: false });
+  }
+
+  handleImageOnLoad = ev => {
+    this.setState({ showImage: true });
   }
 
   render() {
-    const { currentDay, showContent, contentIndex } = this.state;
+    const { currentDay, showContent, showImage, contentIndex, ts } = this.state;
     const contentActiveClass = showContent ? " content__container--active" : "";
+    const imageActiveClass = showImage ? " content__image--active" : "";
 
     return (
       <div className="main__container">
@@ -54,9 +63,10 @@ class App extends Component {
           className={`content__container${contentActiveClass}`}
         >
           <img
-            className="content__image"
+            onLoad={this.handleImageOnLoad}
+            className={`content__image${imageActiveClass}`}
             alt=""
-            src={`${process.env.PUBLIC_URL}/content_${contentIndex}.jpg`}
+            src={`${process.env.PUBLIC_URL}/content_${contentIndex}.jpg?ts=${ts}`}
           />
         </div>
         <div className="landscape__container">
